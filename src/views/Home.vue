@@ -1,6 +1,7 @@
 <template>
   <div>
     <button type="button" @click="$_xls_createdXls">创建xls</button>
+    <button type="button" @click="$_xls_createdXls2">回复xls</button>
     <button type="button" @click="$_xls_previewXls">预览xls</button>
     <button type="button" @click="$_xls_saveModule">保存xls</button>
     <button type="button" @click="$_xls_inquireModule">查询xls</button>
@@ -94,6 +95,10 @@ export default {
         rowHeaders: [],
         contextMenu: true,
         mergeCells: true,
+        // observeChanges: true,
+        // manualRowMove: true,
+        // manualColumnMove: true,
+        // manualRowMove: true,
         afterChange: function (changes, source) { // 数据改变时触发此方法
           console.log('数据改变时触发此方法')
           console.log(this)
@@ -153,14 +158,28 @@ export default {
       // // console.log(event)
       this.colHeardsValue = ''
     },
+    $_xls_createdXls2 () {
+      this.$refs.testHot.hotInstance.clear()
+      let initColHeaders = this.hotSettings.colHeaders
+      let colHeardsValue = this.colHeardsValue
+      // initColHeaders[thisCoords.col] = this.colHeardsValue//
+      // let newColHeard = this.options.filter(item => item.colHeardsValue === colHeardsValue)[0].label
+      // initColHeaders[0] = 'A'//
+      initColHeaders = ['A', 'B', 'C', 'D', 'E', 'F']//
+      this.hotSettings.colHeaders = initColHeaders
+      console.log(this.hotSettings.colHeaders)
+      this.colHeardsValue = ''
+      this.showBtn = false
+      // this.$refs.testHot
+    },
     $_xls_createdXls () {
       // // console.log(HotTable)
       // // console.log(this.vm.HotTable)
 
       // // console.log(this.HotTable.addHook('clear', myCallback))
       // this.HotTable.addHook('clear', myCallback)
+      // debugger
       let initData = [
-        ['', '', '', '', '', ''],
         ['', '', '', '', '', ''],
         ['', '', '', '', '', ''],
         ['', '', '', '', '', ''],
@@ -172,6 +191,7 @@ export default {
       // do somthing
       this.hotSettings.data = initData
       this.hotSettings.colHeaders = initColHeaders
+      // console.log(this.hotSettings.colHeaders.slice())
       this.showXls = true
       // this.$nextTick(() => {
       let examData = this.$refs.testHot // 这里要注意，如果使用this.hotSettings.data 保存表格数据，拖拽完以后数据的顺序将不会更新，因此使用 this.$refs.testHot.table.getData(); 来获取数据，获取的数据格式为二维数组。
@@ -189,23 +209,24 @@ export default {
 
       let res = [
 
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
-        ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd']
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff'],
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff'],
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff'],
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff'],
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff'],
+        ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff']
+
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd'],
+        // ['2016', 'Ford', 'Volvo', 'Toyota', 'Honda', 'aaa', 'bbbbb', 'vvvvv', 'ddsadasd']
 
       ]
       this.hotSettings.data = res
-      console.log(this.$refs.testHot.$data.hotInstance.getData())
+      // console.log(this.$refs.testHot.$data.hotInstance.getData())
       // let examData = this.$refs.Hot.table.getData() // 这里要注意，如果使用this.hotSettings.data 保存表格数据，拖拽完以后数据的顺序将不会更新，因此使用 this.$refs.testHot.table.getData(); 来获取数据，获取的数据格式为二维数组。
       // // console.log(examData)
     },
