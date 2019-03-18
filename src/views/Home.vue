@@ -23,8 +23,9 @@
     </div>
     <!-- <p>{{test}}</p>
     <p>{{xlsModule}}</p> -->
-    <div class="xls-box" v-show="showXls">
+    <div class="xls-box" v-show="showXls" >
       <hot-table
+        @blur="$_xls_blur_xls()"
         :data="hotSettings.data"
         :settings="hotSettings"
         :language="language"
@@ -40,7 +41,7 @@
     </template>
 <script>
 import { HotTable } from '@handsontable-pro/vue'
-import Handsontable from 'handsontable-pro'
+// import Handsontable from 'handsontable-pro'
 import { mapActions, mapGetters } from 'vuex'
 // import Handsontable from 'handsontable-pro'
 import 'handsontable-pro/languages/zh-CN' // 引入中文语言包
@@ -149,14 +150,18 @@ export default {
     this._this = this
   },
   methods: {
+    $_xls_blur_xls () {
+      console.log('_xls_blur_xls')
+    },
     changeSelect () {
       // console.log('changeSelect')
       // this.$_xls_afterOnCellMouseDown(this.cellParms.event, this.cellParms.coords)
       this.$_xls_afterOnCellMouseDown(this.cellParms.coords)
     },
     blurSelect (event) {
-      // // console.log(event)
+      console.log(event)
       this.colHeardsValue = ''
+      this.showBtn = false
     },
     $_xls_createdXls2 () {
       this.$refs.testHot.hotInstance.clear()
